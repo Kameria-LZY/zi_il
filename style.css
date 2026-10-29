@@ -972,3 +972,19 @@ h2 {
   .study-item .study-year { grid-column: 1 / -1; padding-top: 0; font-size: 0.9rem; }
   .study-item > .study-body { padding-left: 0; }
 }
+
+/* ============================================================
+   Favorite Films 页：一行一部，短评跟在下面
+   ============================================================ */
+
+.film-note {
+  margin: 0.7rem 0 0;
+  font-size: 0.97rem;
+  line-height: 1.65;
+  color: var(--ink-soft);
+  max-width: 38rem;
+}
+
+/* 影单条目比研究条目矮一点，读起来更轻 */
+.band--blush article.study .study-head { align-items: baseline; }
+.band--blush article.study:first-of-type { border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent); }
