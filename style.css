@@ -990,22 +990,48 @@ h2 {
 .band--blush article.study:first-of-type { border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent); }
 
 /* ============================================================
-   Favorite Films：横向滑动的海报条
+   Favorite Films：聚焦式卡牌滑轨
+   中间那张清晰、其余虚化；左右滑动切换。
+   聚焦程度由 JS 算出的 --d（0 = 正中，1 = 远离）驱动，
+   没有 JS 时 --d 保持 0，所有卡片都清晰可见，不影响阅读。
    ============================================================ */
 
-.films-band { padding-bottom: clamp(3.5rem, 7vw, 6rem); }
+:root {
+  --card-w: clamp(14rem, 28vw, 23rem);
+}
+
+.films-band { padding-bottom: clamp(3rem, 6vw, 5rem); }
 
 .strip-head {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: 1.5rem;
-  padding-bottom: 2rem;
+  padding-bottom: 2.5rem;
 }
 
 .strip-head .section-num { margin: 0; }
 
-.strip-controls { display: flex; gap: 0.5rem; }
+.strip-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.strip-count {
+  font-family: var(--label);
+  font-size: 0.64rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+  margin-right: 0.4rem;
+}
+
+.strip-count b {
+  font-weight: 600;
+  color: var(--ink);
+}
 
 .strip-btn {
   width: 2.4rem;
@@ -1013,9 +1039,9 @@ h2 {
   display: grid;
   place-items: center;
   border-radius: 50%;
-  border: 1px solid color-mix(in srgb, var(--on-ink) 28%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ink) 25%, transparent);
   background: transparent;
-  color: var(--on-ink);
+  color: var(--ink);
   font-size: 0.95rem;
   line-height: 1;
   cursor: pointer;
@@ -1025,19 +1051,20 @@ h2 {
 .strip-btn:hover {
   background: var(--accent);
   border-color: var(--accent);
+  color: var(--paper);
 }
 
 .strip-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
-/* 滚动容器：两端留白与正文列对齐，右侧溢出提示还能滑 */
+/* 滑轨：两端留出半个视口，让首尾也能停在正中 */
 .strip {
   display: flex;
-  gap: clamp(1rem, 2vw, 1.75rem);
+  gap: clamp(1.5rem, 3vw, 3rem);
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
-  padding: 0.25rem max(var(--gutter), calc((100vw - var(--wrap)) / 2 + var(--gutter))) 1.5rem;
+  padding: 0.5rem calc(50vw - var(--card-w) / 2) 1rem;
   scrollbar-width: none;
   cursor: grab;
 }
@@ -1052,10 +1079,16 @@ h2 {
 
 .strip:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
-/* 单张海报 */
+/* 单张卡牌 */
 .poster-card {
-  flex: 0 0 clamp(10.5rem, 20vw, 15rem);
-  scroll-snap-align: start;
+  --d: 0;
+  flex: 0 0 var(--card-w);
+  scroll-snap-align: center;
+  /* 越远离中心：略微缩小、变淡 */
+  transform: scale(calc(1 - var(--d) * 0.07));
+  opacity: calc(1 - var(--d) * 0.28);
+  transition: transform 0.35s ease, opacity 0.35s ease;
+  will-change: transform, opacity;
 }
 
 .poster-frame {
@@ -1063,59 +1096,67 @@ h2 {
   aspect-ratio: 2 / 3;
   overflow: hidden;
   background: #0b0908;
-  border: 1px solid color-mix(in srgb, var(--on-ink) 16%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  box-shadow: 0 14px 34px -22px rgba(18, 16, 14, 0.55);
+  transition: box-shadow 0.35s ease;
 }
 
+/* 虚化只作用在图片上，文字保持可读 */
 .poster-frame img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  filter: grayscale(0.35) contrast(1.02);
-  transition: filter 0.45s ease, transform 0.7s ease;
+  filter:
+    blur(calc(var(--d) * 2.5px))
+    grayscale(calc(0.12 + var(--d) * 0.5))
+    brightness(calc(1 - var(--d) * 0.06));
+  transition: filter 0.35s ease, transform 0.7s ease;
 }
 
-.poster-card:hover .poster-frame img,
-.poster-card:focus-within .poster-frame img {
-  filter: none;
-  transform: scale(1.035);
+.poster-card:hover .poster-frame img {
+  transform: scale(1.03);
+}
+
+.poster-text {
+  padding-top: 1rem;
+  /* 文字随卡片一起淡出，只有正中那张的说明是清楚的 */
+  opacity: calc(1 - var(--d) * 0.8);
+  transition: opacity 0.35s ease;
 }
 
 .poster-title {
-  margin: 0.95rem 0 0.3rem;
+  margin: 0 0 0.35rem;
   font-family: var(--display);
   font-weight: 400;
-  font-size: 1.02rem;
+  font-size: 1.08rem;
   line-height: 1.3;
   letter-spacing: -0.005em;
-  color: var(--on-ink);
+  color: var(--ink);
 }
 
 .poster-meta {
-  margin: 0 0 0.55rem;
+  margin: 0 0 0.6rem;
   font-family: var(--label);
   font-size: 0.58rem;
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--on-ink) 55%, transparent);
+  color: var(--accent);
 }
 
 .poster-note {
   margin: 0;
-  font-size: 0.83rem;
+  font-size: 0.86rem;
   line-height: 1.55;
-  color: color-mix(in srgb, var(--on-ink) 62%, transparent);
+  color: var(--ink-soft);
 }
 
+/* 窄屏：一张占大半个视口，箭头藏起来（用手指滑） */
 @media (max-width: 46rem) {
-  .strip-head { padding-bottom: 1.25rem; }
-  .strip-controls { display: none; }
-  .poster-card { flex-basis: 62vw; }
-  .poster-note { font-size: 0.78rem; }
-}
-
-/* 影单的墨黑带与页脚相连，加一条细线分开 */
-.films-band + .footer {
-  border-top: 1px solid color-mix(in srgb, var(--on-ink) 12%, transparent);
+  :root { --card-w: 74vw; }
+  .strip { gap: 1.25rem; }
+  .strip-head { padding-bottom: 1.5rem; }
+  .strip-btn { display: none; }
+  .poster-note { font-size: 0.82rem; }
 }
