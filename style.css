@@ -826,3 +826,149 @@ h2 {
   .study-head { grid-template-columns: 1fr; gap: 0.2rem; }
   .study-body { margin-left: 0; }
 }
+
+/* ============================================================
+   Research 页：可展开的大标题列表（原生 details，零 JS）
+   ============================================================ */
+
+.research-list {
+  border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+}
+
+.study-item {
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+}
+
+.study-item > summary {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr) 1.75rem;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  align-items: start;
+  padding: 2.1rem 0;
+  cursor: pointer;
+  list-style: none;
+  transition: opacity 0.18s ease;
+}
+
+.study-item > summary::-webkit-details-marker { display: none; }
+.study-item > summary::marker { content: ''; }
+
+/* 悬停时标题微微变暗红，暗示可点 */
+.study-item > summary:hover .study-title { color: var(--accent); }
+.study-item > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+.study-item .study-year {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--ink-soft);
+  padding-top: 0.55rem;
+}
+
+.study-heading { display: block; }
+
+.study-item .study-title {
+  display: block;
+  margin: 0 0 0.55rem;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.45rem, 3.3vw, 2.05rem);
+  line-height: 1.22;
+  letter-spacing: -0.015em;
+  transition: color 0.18s ease;
+}
+
+.study-item .study-meta {
+  display: block;
+  font-family: var(--label);
+  font-size: 0.63rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* 右侧的加号，展开时减号 */
+.study-toggle {
+  position: relative;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-top: 0.4rem;
+  border: 1px solid color-mix(in srgb, var(--ink) 25%, transparent);
+  border-radius: 50%;
+  justify-self: end;
+  transition: border-color 0.18s ease, background 0.18s ease;
+}
+
+.study-toggle::before,
+.study-toggle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: var(--ink-soft);
+  transition: transform 0.22s ease, opacity 0.22s ease;
+}
+
+.study-toggle::before {
+  width: 0.6rem;
+  height: 1px;
+  transform: translate(-50%, -50%);
+}
+
+.study-toggle::after {
+  width: 1px;
+  height: 0.6rem;
+  transform: translate(-50%, -50%);
+}
+
+.study-item[open] .study-toggle {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.study-item[open] .study-toggle::before,
+.study-item[open] .study-toggle::after { background: var(--paper); }
+
+.study-item[open] .study-toggle::after { opacity: 0; }
+
+.study-item > .study-body {
+  margin: 0 0 2.2rem;
+  padding-left: calc(5.5rem + clamp(1rem, 3vw, 2.5rem));
+  max-width: 46rem;
+  animation: reveal 0.25s ease;
+}
+
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.study-item > .study-body p {
+  margin: 0 0 0.9rem;
+  font-size: 0.98rem;
+  line-height: 1.72;
+  color: var(--ink-soft);
+}
+
+.study-item > .study-body p:last-child { margin-bottom: 0; }
+
+.study-item > .study-body strong {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-family: var(--label);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .study-item > .study-body { animation: none; }
+}
+
+@media (max-width: 46rem) {
+  .study-item > summary { grid-template-columns: 1fr 1.75rem; gap: 0.35rem 1rem; padding: 1.6rem 0; }
+  .study-item .study-year { grid-column: 1 / -1; padding-top: 0; font-size: 0.9rem; }
+  .study-item > .study-body { padding-left: 0; }
+}
