@@ -200,7 +200,7 @@ body::after {
   margin: 0;
   font-family: var(--display);
   font-weight: 400;
-  font-size: clamp(3.4rem, 13vw, 9rem);
+  font-size: clamp(3rem, 9vw, 7rem);
   line-height: 0.86;
   letter-spacing: -0.025em;
 }
