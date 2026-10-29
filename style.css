@@ -1214,3 +1214,35 @@ h2 {
 
   .about-grid--text { grid-template-columns: 1fr; gap: 2rem; }
 }
+
+/* ============================================================
+   About 右栏：研究兴趣卡片（竖排列表 + 细边框 + 纸白底）
+   ============================================================ */
+
+.about-side .interests {
+  margin-top: 0 !important;
+  padding: 1.5rem 1.6rem 1.7rem;
+  background: var(--paper);
+  border: 1px solid color-mix(in srgb, var(--ink) 15%, transparent);
+}
+
+.about-side .interests strong {
+  display: block;
+  margin-bottom: 0;
+}
+
+.about-side .interests ul {
+  margin: 0.9rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.about-side .interests li {
+  padding: 0.33rem 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.about-side .interests li:first-child { padding-top: 0; }
+.about-side .interests li:last-child { padding-bottom: 0; }
