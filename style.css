@@ -1160,3 +1160,57 @@ h2 {
   .strip-btn { display: none; }
   .poster-note { font-size: 0.82rem; }
 }
+
+/* ============================================================
+   首屏改为两栏：左侧文字，右侧人像
+   ============================================================ */
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(15rem, 28vw, 22rem);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+.hero-copy { min-width: 0; }
+
+.hero-portrait { margin: 0; }
+
+.hero-portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center 42%;
+  border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  box-shadow: 0 20px 44px -30px rgba(18, 16, 14, 0.55);
+  filter: saturate(0.95) contrast(1.02);
+}
+
+/* ============================================================
+   About：去掉人像后改为「正文 + 研究兴趣侧栏」
+   ============================================================ */
+
+.about-grid--text {
+  grid-template-columns: minmax(0, 1fr) clamp(14rem, 22vw, 18rem);
+  align-items: start;
+}
+
+.about-grid--text .about-copy p { max-width: 34rem; }
+
+.about-side .interests {
+  margin-top: 0 !important;
+  padding-top: 1.05rem;
+}
+
+@media (max-width: 46rem) {
+  .hero-grid { grid-template-columns: 1fr; gap: 2rem; }
+
+  .hero-portrait img {
+    aspect-ratio: 4 / 3;
+    object-position: center 38%;
+  }
+
+  .about-grid--text { grid-template-columns: 1fr; gap: 2rem; }
+}
