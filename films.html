@@ -31,79 +31,75 @@
       <div class="hero-rule"></div>
       <p class="page-lede">
         Not a canon — just the films that taught me how to watch, and that I still
-        argue about.
+        argue about. Drag the row, or use the arrows.
       </p>
     </div>
   </section>
 
-  <!-- 占位示例：换成你自己真正喜欢的片目 -->
-  <section class="band band--blush">
-    <div class="wrap">
+  <!-- 占位示例：海报是生成的占位图，换成真海报时保持 2:3 比例即可 -->
+  <section class="band band--ink films-band">
+    <div class="wrap strip-head">
+      <p class="section-num">— On the shelf</p>
+      <div class="strip-controls">
+        <button class="strip-btn" type="button" data-dir="-1" aria-label="Scroll left">←</button>
+        <button class="strip-btn" type="button" data-dir="1" aria-label="Scroll right">→</button>
+      </div>
+    </div>
 
-      <article class="study">
-        <div class="study-head">
-          <span class="study-year">1984</span>
-          <div>
-            <h2 class="study-title">Bless Their Little Hearts</h2>
-            <p class="study-meta">Billy Woodberry</p>
-            <p class="film-note">The film that taught me what independence actually costs.</p>
-          </div>
-        </div>
+    <div class="strip" id="filmStrip" tabindex="0" aria-label="Favorite films">
+
+      <article class="poster-card">
+        <figure class="poster-frame">
+          <img src="posters/b01.jpg" alt="Placeholder poster for Bless Their Little Hearts" width="400" height="600" loading="lazy">
+        </figure>
+        <h2 class="poster-title">Bless Their Little Hearts</h2>
+        <p class="poster-meta">Billy Woodberry · 1984</p>
+        <p class="poster-note">The film that taught me what independence actually costs.</p>
       </article>
 
-      <article class="study">
-        <div class="study-head">
-          <span class="study-year">1995</span>
-          <div>
-            <h2 class="study-title">Safe</h2>
-            <p class="study-meta">Todd Haynes</p>
-            <p class="film-note">Illness as the first genre of the platform era.</p>
-          </div>
-        </div>
+      <article class="poster-card">
+        <figure class="poster-frame">
+          <img src="posters/b02.jpg" alt="Placeholder poster for Safe" width="400" height="600" loading="lazy">
+        </figure>
+        <h2 class="poster-title">Safe</h2>
+        <p class="poster-meta">Todd Haynes · 1995</p>
+        <p class="poster-note">Illness as the first genre of the platform era.</p>
       </article>
 
-      <article class="study">
-        <div class="study-head">
-          <span class="study-year">1999</span>
-          <div>
-            <h2 class="study-title">Beau Travail</h2>
-            <p class="study-meta">Claire Denis</p>
-            <p class="film-note">Proof that a film can end with a dance and lose nothing.</p>
-          </div>
-        </div>
+      <article class="poster-card">
+        <figure class="poster-frame">
+          <img src="posters/b03.jpg" alt="Placeholder poster for Beau Travail" width="400" height="600" loading="lazy">
+        </figure>
+        <h2 class="poster-title">Beau Travail</h2>
+        <p class="poster-meta">Claire Denis · 1999</p>
+        <p class="poster-note">Proof that a film can end with a dance and lose nothing.</p>
       </article>
 
-      <article class="study">
-        <div class="study-head">
-          <span class="study-year">2004</span>
-          <div>
-            <h2 class="study-title">Primer</h2>
-            <p class="study-meta">Shane Carruth</p>
-            <p class="film-note">Made for $7,000 — still the best argument against scale.</p>
-          </div>
-        </div>
+      <article class="poster-card">
+        <figure class="poster-frame">
+          <img src="posters/b04.jpg" alt="Placeholder poster for Primer" width="400" height="600" loading="lazy">
+        </figure>
+        <h2 class="poster-title">Primer</h2>
+        <p class="poster-meta">Shane Carruth · 2004</p>
+        <p class="poster-note">Made for $7,000 — still the best argument against scale.</p>
       </article>
 
-      <article class="study">
-        <div class="study-head">
-          <span class="study-year">2017</span>
-          <div>
-            <h2 class="study-title">The Florida Project</h2>
-            <p class="study-meta">Sean Baker</p>
-            <p class="film-note">The last American film that trusted its own location.</p>
-          </div>
-        </div>
+      <article class="poster-card">
+        <figure class="poster-frame">
+          <img src="posters/b05.jpg" alt="Placeholder poster for The Florida Project" width="400" height="600" loading="lazy">
+        </figure>
+        <h2 class="poster-title">The Florida Project</h2>
+        <p class="poster-meta">Sean Baker · 2017</p>
+        <p class="poster-note">The last American film that trusted its own location.</p>
       </article>
 
-      <article class="study">
-        <div class="study-head">
-          <span class="study-year">2022</span>
-          <div>
-            <h2 class="study-title">Aftersun</h2>
-            <p class="study-meta">Charlotte Wells</p>
-            <p class="film-note">The A24 film that isn't quite an A24 film, which is the point.</p>
-          </div>
-        </div>
+      <article class="poster-card">
+        <figure class="poster-frame">
+          <img src="posters/b06.jpg" alt="Placeholder poster for Aftersun" width="400" height="600" loading="lazy">
+        </figure>
+        <h2 class="poster-title">Aftersun</h2>
+        <p class="poster-meta">Charlotte Wells · 2022</p>
+        <p class="poster-note">The A24 film that isn't quite an A24 film, which is the point.</p>
       </article>
 
     </div>
@@ -124,6 +120,8 @@
       <p class="footer-note">Last updated October 2026</p>
     </div>
   </footer>
+
+  <script src="films.js" defer></script>
 
 </body>
 </html>
