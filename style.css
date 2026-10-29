@@ -1185,7 +1185,7 @@ h2 {
   object-position: center 42%;
   border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
   box-shadow: 0 20px 44px -30px rgba(18, 16, 14, 0.55);
-  filter: saturate(0.95) contrast(1.02);
+  filter: saturate(0.84) contrast(1.05) sepia(0.07) brightness(0.98);
 }
 
 /* ============================================================
